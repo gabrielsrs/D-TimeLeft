@@ -4,7 +4,7 @@ from datetime import date
 import pytest
 from werkzeug.exceptions import BadRequest, NotFound
 
-from ...src.services.update_date_service import UpdateDateService
+from src.services.update_date_service import UpdateDateService
 from ..data_factories.date_factory import DateFactory
 from ..data_factories.date_db_factory import DateDbFactory
 
@@ -23,7 +23,7 @@ def test_update_date_structure():
     assert update_date['tzdb']
     assert update_date['updated_at_utc']
 
-def test_update_with_not_request_data():
+def test_update_without_request_data():
     """Test date update without request data to assert error"""
     date_object = DateFactory(title=None, dateEnd=None, timezone=None)
     date_object_from_db = DateDbFactory()
@@ -34,7 +34,7 @@ def test_update_with_not_request_data():
     assert excinfo.type is BadRequest
     assert "Nothing to update" in str(excinfo.value)
 
-def test_update_with_not_db_data():
+def test_update_without_db_data():
     """Test date update without database corresponded object to assert error"""
     date_object = DateFactory()
     date_object_from_db = None
