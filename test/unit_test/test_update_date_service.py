@@ -1,5 +1,5 @@
 from dataclasses import asdict
-from datetime import date
+from datetime import datetime, timezone
 
 import pytest
 from werkzeug.exceptions import BadRequest, NotFound
@@ -57,4 +57,4 @@ def test_update_without_dateEnd():
     assert date_object_from_db.date_time_utc == update_date['date_time_utc']
     assert date_object.timezone != update_date['iana']
     assert update_date['tzdb']
-    assert date.today().isoformat() in update_date['updated_at_utc']
+    assert datetime.now(timezone.utc).date().isoformat() in update_date['updated_at_utc']
