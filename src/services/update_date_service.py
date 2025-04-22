@@ -33,13 +33,13 @@ class UpdateDateService:
 
             date["date_time_local"] = define_timezone.replace(tzinfo=None).isoformat()
             date["date_time_utc"] = define_timezone.astimezone(
-                ZoneInfo('utc')).replace(tzinfo=None
+                ZoneInfo('UTC')).replace(tzinfo=None
             ).isoformat()
 
             date["iana"] = date.pop("timezone") or update_data["iana"]
             date["tzdb"] = tzdata.IANA_VERSION
 
-        date["updated_at_utc"] = datetime.now(ZoneInfo('utc')).replace(tzinfo=None).isoformat()
+        date["updated_at_utc"] = datetime.now(ZoneInfo('UTC')).replace(tzinfo=None).isoformat()
 
         update_data.update({k: str(v) for k, v in date.items() if v is not None})
 
