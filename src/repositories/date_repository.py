@@ -2,7 +2,7 @@ from ..config.db_connection import create_conn
 
 class DateRepository:
     """Query methods from database"""
-    
+
     def __init__(self):
         """Initiate database connection"""
         self.conn = create_conn()
