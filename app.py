@@ -2,10 +2,20 @@ from flask import Flask
 from src.api import api
 from src.utils.error_handler import ErrorHandler
 
-app = Flask(__name__)
-api.init_app(app)
+def create_app():
+    from dotenv import load_dotenv
+    import os
+    load_dotenv()
 
-app.register_error_handler(Exception, lambda error: ErrorHandler(error)())
+    app = Flask(__name__)
+    app.config["MONGO_CONNECTION"] = os.getenv("MONGO_CONNECTION")
+
+    api.init_app(app)
+
+    app.register_error_handler(Exception, lambda error: ErrorHandler(error)())
+
+    return app
 
 if __name__ == '__main__':
+    app = create_app()
     app.run(debug=True)
