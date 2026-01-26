@@ -1,12 +1,10 @@
 from pymongo import MongoClient
-from dotenv import load_dotenv
-import os
-load_dotenv()
+from flask import current_app
 
 def create_conn():
     """Create database connection"""
-    client = MongoClient(os.getenv("MONGO_CONNECTION"))
-    db = client.dateEnd
+    client = MongoClient(current_app.config["MONGO_CONNECTION"])
+    db = client.da
     collection = db.dates
 
     return collection
