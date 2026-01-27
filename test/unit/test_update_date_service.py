@@ -5,8 +5,8 @@ import pytest
 from werkzeug.exceptions import BadRequest, NotFound
 
 from src.services.update_date_service import UpdateDateService
-from ..data_factories.date_factory import DateFactory
-from ..data_factories.date_db_factory import DateDbFactory
+from ..fixtures.data_factories.date_factory import DateFactory
+from ..fixtures.data_factories.date_db_factory import DateDbFactory
 
 update_date_service = UpdateDateService()
 
