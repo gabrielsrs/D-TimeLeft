@@ -1,5 +1,6 @@
 from datetime import datetime
 from zoneinfo import ZoneInfo
+from aniso8601 import parse_datetime
 import tzdata
 from werkzeug.exceptions import BadRequest, NotFound
 
@@ -25,9 +26,19 @@ class UpdateDateService:
         update_data = current_data.copy()
         update_data.pop("_id")
 
+        if date["timezone"]:
+            date["date_time_local"] = parse_datetime(update_data["date_time_utc"]) \
+                .replace(tzinfo=ZoneInfo('UTC')) \
+                .astimezone(ZoneInfo(date["timezone"])) \
+                .replace(tzinfo=None) \
+                .isoformat()
+
+            date["iana"] = date.pop("timezone")
+            date["tzdb"] = tzdata.IANA_VERSION
+
         if date["dateEnd"]:
             define_timezone = date['dateEnd'].replace(
-                tzinfo=ZoneInfo(date["timezone"] or update_data["iana"])
+                tzinfo=ZoneInfo(date["iana"] or update_data["iana"])
             )
             date.pop("dateEnd")
 
@@ -36,8 +47,6 @@ class UpdateDateService:
                 ZoneInfo('UTC')).replace(tzinfo=None
             ).isoformat()
 
-            date["iana"] = date.pop("timezone") or update_data["iana"]
-            date["tzdb"] = tzdata.IANA_VERSION
 
         date["updated_at_utc"] = datetime.now(ZoneInfo('UTC')).replace(tzinfo=None).isoformat()
 
