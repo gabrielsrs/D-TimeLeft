@@ -8,7 +8,8 @@ def create_app():
     load_dotenv()
 
     app = Flask(__name__)
-    app.config["MONGO_CONNECTION"] = os.getenv("MONGO_CONNECTION")
+    app.config["MONGO_URI"] = os.getenv("MONGO_URI")
+    app.config["MONGO_DB"] = os.getenv("MONGO_DB")
 
     api.init_app(app)
 
