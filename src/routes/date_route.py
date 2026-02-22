@@ -62,7 +62,7 @@ class DateEnd(Resource):
         super().__init__(api, *args, **kwargs)
         self.update_parser = UpdateParser()
 
-    def _update_parser(self):
+    def _update_parser(self): # pragma: no cover
         """Get parser related with update"""
         return self.update_parser()
 
@@ -105,7 +105,7 @@ class DateEndPost(Resource):
         self.create_handler = CreateDateHandler()
         self.create_parser = CreateParser()
 
-    def _create_parser(self):
+    def _create_parser(self): # pragma: no cover
         """Get parser related with create"""
         return self.create_parser()
 
