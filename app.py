@@ -8,15 +8,10 @@ def create_app():
     load_dotenv()
 
     app = Flask(__name__)
-    app.config["MONGO_URI"] = os.getenv("MONGO_URI")
-    app.config["MONGO_DB"] = os.getenv("MONGO_DB")
+    app.config.from_pyfile('.env')
 
     api.init_app(app)
 
     app.register_error_handler(Exception, lambda error: ErrorHandler(error)())
 
     return app
-
-if __name__ == '__main__':
-    app = create_app()
-    app.run(debug=True)
