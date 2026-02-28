@@ -8,7 +8,7 @@ def create_app():
     load_dotenv()
 
     app = Flask(__name__)
-    app.config.from_pyfile('.env')
+    app.config.from_pyfile(filename='.env', silent=True)
 
     api.init_app(app)
 

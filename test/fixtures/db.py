@@ -20,11 +20,8 @@ def client(collection):
     from app import create_app
     app = create_app()
 
-    app.config.update({
-        "MONGO_CONNECTION": TEST_MONGO_URI,
-        "MONGO_DB": TEST_DB_NAME,
-        "TESTING": True,
-    })
+    app.config["MONGO_URI"] = TEST_MONGO_URI
+    app.config["MONGO_DB"] = TEST_DB_NAME
 
     test_client = Client(app)
 
