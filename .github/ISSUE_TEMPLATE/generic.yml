@@ -1,0 +1,77 @@
+name: Generic Issue
+description: Create a structured issue
+title: "[TYPE]: "
+labels: []
+assignees: ["gabrielsrs"]
+
+body:
+  - type: dropdown
+    id: commit_type
+    attributes:
+      label: Conventional Commit Type
+      description: Select the type that best represents this issue
+      options:
+        - feat
+        - fix
+        - chore
+        - docs
+        - style
+        - refactor
+        - perf
+        - test
+        - build
+        - ci
+        - revert
+    validations:
+      required: true
+
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Short and clear description of the issue
+      placeholder: Short description here
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: Explain the problem, task, or feature request
+      placeholder: |
+        What is happening?
+        What should happen?
+        Why is this needed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: Tasks
+      description: List the tasks needed
+      placeholder: |
+        - [ ] Task 1
+        - [ ] Task 2
+        - [ ] Task 3
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected_result
+    attributes:
+      label: Expected Result
+      description: Describe what "done" looks like
+      placeholder: What should be true when this issue is completed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Add any extra context, links, or screenshots
+      placeholder: Optional
+    validations:
+      required: false

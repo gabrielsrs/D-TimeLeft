@@ -1,0 +1,57 @@
+name: Test Issue
+description: Add, fix, or improve tests
+title: "[TEST]: "
+labels: ["test"]
+assignees: ["gabrielsrs"]
+
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Short description of the test issue
+      placeholder: Add unit tests for auth service
+    validations:
+      required: true
+
+  - type: dropdown
+    id: test_type
+    attributes:
+      label: Test Type
+      options:
+        - Unit Test
+        - Integration Test
+        - E2E Test
+        - Performance Test
+        - Refactor Existing Tests
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What needs to be tested or fixed?
+      placeholder: |
+        What module/function?
+        What scenario?
+        Edge cases?
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance Criteria
+      placeholder: |
+        - [ ] Tests cover happy path
+        - [ ] Edge cases covered
+        - [ ] Tests passing in CI
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Additional Notes
+      description: Optional context
