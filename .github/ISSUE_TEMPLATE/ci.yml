@@ -1,0 +1,50 @@
+name: CI Issue
+description: Report a CI/CD pipeline problem or improvement
+title: "[CI]: "
+labels: ["ci"]
+assignees: ["gabrielsrs"]
+
+body:
+  - type: input
+    id: summary
+    attributes:
+      label: Summary
+      description: Short description of the CI issue
+      placeholder: CI failing on development branch
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem Description
+      description: Describe what is happening in the CI pipeline
+      placeholder: |
+        Which workflow is failing?
+        What is the error message?
+        When did it start?
+    validations:
+      required: true
+
+  - type: input
+    id: workflow
+    attributes:
+      label: Workflow Name
+      description: Name of the GitHub Actions workflow (if applicable)
+      placeholder: build.yml
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: What should happen?
+      placeholder: Pipeline should pass without errors
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs / Screenshots
+      description: Paste relevant logs or screenshots
+      render: shell
