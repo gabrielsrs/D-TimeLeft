@@ -17,7 +17,8 @@ class Timezones(Resource):
         Resource for managing timezones.
 
         Operations:
-        - **Read** (`GET /timezones`) → Retrieve timezones.
+        - **Read** (`GET /timezones?timezone=...&offset=...`) → Retrieve timezones.
+
             :return: A json with contain the timezones, with offset and identifiers
     """
     def __init__(self, api=None, *args, **kwargs):
@@ -32,7 +33,10 @@ class Timezones(Resource):
     @api.marshal_with(timezones)
     @api.expect(_tz_filter)
     def get(self):
-        """Get all available timezones."""
+        """
+            Get all available timezones.
+            Possibility of filter with timezone identifier or utc-offset.
+        """
         timezones_handler = TimezonesHandler()
         args = self.tz_filter().parse_args()
         return timezones_handler.timezones(args)
