@@ -6,8 +6,9 @@ class TimezonesHandler:
 
     def timezones(self, args):
         """
-        Get all currents available timezones
+        Get all currents available timezones, and filter by UTC-Offset and Timezone identifiers name
 
+        :param args: The timezone and offset filter/None (dict-like mapping).
         :return: Information from tzdata from each timezone
         """
 
