@@ -1,11 +1,21 @@
-from flask_restx import Api
+from flask_restx import Api, Resource
 from werkzeug.exceptions import HTTPException
 from collections import OrderedDict
 
 from .routes.date_route import api as date
 from .routes.timezones_route import api as timezones
 
-api = Api(bundle_errors=True)
+api = Api(bundle_errors=True, default="Default")
+
+@api.route('/health')
+class Health(Resource):
+    """
+    Base route to validate health
+    Used in the docker as health check
+    """
+    def get(self):
+        "API health validation"
+        return {"status": "ok"}, 200
 
 @api.errorhandler(HTTPException)
 def http_exception_error_handler(error):
