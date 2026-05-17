@@ -1,14 +1,14 @@
 import pytest
 from werkzeug.test import Client
 from pymongo import MongoClient
-
-TEST_MONGO_URI = 'mongodb://localhost/test'
-TEST_DB_NAME = 'test'
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
 @pytest.fixture
 def collection():
-    mongo = MongoClient(TEST_MONGO_URI)
-    db = mongo[TEST_DB_NAME]
+    mongo = MongoClient(os.getenv("TEST_MONGO_URI"))
+    db = mongo[os.getenv("TEST_DB_NAME")]
     collection = db.dates
 
     yield collection
@@ -20,8 +20,8 @@ def client(collection):
     from app import create_app
     app = create_app()
 
-    app.config["MONGO_URI"] = TEST_MONGO_URI
-    app.config["MONGO_DB"] = TEST_DB_NAME
+    app.config["MONGO_URI"] = os.getenv("TEST_MONGO_URI")
+    app.config["MONGO_DB"] = os.getenv("TEST_DB_NAME")
 
     test_client = Client(app)
 
