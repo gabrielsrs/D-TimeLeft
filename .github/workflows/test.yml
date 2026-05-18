@@ -24,7 +24,9 @@ jobs:
 
     env:
       MONGO_URI: ${{ secrets.MONGO_URI }}
+      TEST_MONGO_URI: ${{ secrets.MONGO_URI }}
       MONGO_DB: ${{ secrets.MONGO_DB }}
+      TEST_DB_NAME: ${{ secrets.MONGO_DB }}
 
     steps:
       - name: Checkout
