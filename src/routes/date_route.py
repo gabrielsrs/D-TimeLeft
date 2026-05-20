@@ -1,4 +1,5 @@
 from flask_restx import Resource, Namespace
+from flask import request
 
 from src.utils.response_marshalling.get_date_marshalling import get_models, get_date
 from src.utils.response_marshalling.create_date_marshalling import create_models, created_date
@@ -80,7 +81,11 @@ class DateEnd(Resource):
     def patch(self, date_id):
         """Update an existing date."""
         update_handler = UpdateDateHandler(date_id)
-        return update_handler.update_date(self.update_parser)
+
+        req_data = request.get_json()
+        data_parser = self.update_parser().parse_args()
+
+        return update_handler.update_date(req_data, data_parser)
 
     @api.marshal_with(deleted_date)
     @id_validator
@@ -117,4 +122,7 @@ class DateEndPost(Resource):
         Create a new date.
         In addition required fields, any other field are accepted
         """
-        return self.create_handler.create_date(self.create_parser)
+        req_data = request.get_json()
+        data_parser = self.create_parser().parse_args()
+
+        return self.create_handler.create_date(req_data, data_parser)

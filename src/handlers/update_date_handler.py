@@ -1,6 +1,5 @@
 from ..services.update_date_service import UpdateDateService
 from ..repositories.date_repository import DateRepository
-from flask import request
 from ..utils.id_parser import IdParser
 
 class UpdateDateHandler:
@@ -13,7 +12,7 @@ class UpdateDateHandler:
         self.update_date_service = UpdateDateService()
         self.id = IdParser(date_id)
 
-    def update_date(self, update_parser):
+    def update_date(self, req_data, data_parser):
         """
         Update date from current id database.
 
@@ -22,8 +21,7 @@ class UpdateDateHandler:
         :return: Formatted object with date object updated
         """
 
-        req_data = request.get_json()
-        req_data.update(update_parser().parse_args())
+        req_data.update(data_parser)
 
         current_data = self.conn.find_one(self.id.id_to_object())
 

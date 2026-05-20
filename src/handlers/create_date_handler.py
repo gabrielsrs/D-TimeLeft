@@ -1,6 +1,5 @@
 from ..services.create_date_service import CreateDateService
 from ..repositories.date_repository import DateRepository
-from flask import request
 
 from ..utils.id_parser import IdParser
 
@@ -14,7 +13,7 @@ class CreateDateHandler:
 
         self.id = None
 
-    def create_date(self, create_parser):
+    def create_date(self, req_data, data_parser):
         """
         Create a new date in database.
 
@@ -22,9 +21,7 @@ class CreateDateHandler:
 
         :return: Formatted object with date object created
         """
-        req_data = request.get_json()
-
-        req_data.update(create_parser().parse_args())
+        req_data.update(data_parser)
         to_create_data = self.create_date_service.create_date(req_data)
 
         query_response = self.conn.insert_one(to_create_data)
